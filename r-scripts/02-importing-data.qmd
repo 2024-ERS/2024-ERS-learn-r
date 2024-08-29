@@ -1,0 +1,61 @@
+---
+title: "Restore your libraries to the state in the lock file "
+author: "Han Olff"
+format: docx
+date: "2024-09-02"
+---
+
+# Importing data in R
+
+Data can be imported in different ways in R:\
+1. entering data directly in your script\
+2. reading data from a .csv or .xlsx file from your local computer or online source\
+3. reading data from a published csv link in a Google Sheets database\
+We will mostly use the last method during this course. When reading data, we prefer the readr::read_csv() function, as it reads data directly into a tibble instead of a dataframe. A tibble is more compact when printed and shows the variable types directly.
+
+```{r}
+#| label: load-libraries
+#| output: false  
+library(tidyverse) # load the tidyverse libraries, including readr
+```
+
+```{r}
+#| label: enter-data-in-script
+#| warning: false
+# method 1 - data enter by typing them into your your script 
+x<-c(1,2,3,4)
+y<-c(1,4,3,5)
+data1<-data.frame(x,y)
+print(data1)
+
+```
+
+This is however not practical for large datasets, then it is better to read data from a file.\
+If you want to read a file from a drive from your computer, it is a good idea to set a working directory to point where your different datasets are located
+
+```{r}
+#| label: read-from-disk
+setwd("C:/Users/holff/data") # note that the slashes have to be forward, not backward
+data2<-readr::read_csv("EVI2001_2023.csv")
+print(data2)
+```
+
+The problem however, is that this does not work on your computer, because you do not have this folder and file. So in collaborative projects it is much better to read data from an online data source.\
+Google Sheets can be set up to publish online datasets to a csv file, that can be directly read into R. For this use in Google Sheets menu File/ Share / Publish to web, choose the sheet to publish andas type, choose Comma-separated values. This produces a link, that you put in your R script. This is the preferred methods, as it comes with large benefits of managing the data in one place in a relational database. It is best practice to give the dataframe that you read in R the same name as the table (sheet) in Google Sheets. In this way, data can be read on any computer, and multiple computers can read the same datafile. That is what you want in a collaborative project.
+
+```{r}
+#| label: read-google-sheets-data
+
+FactSectionAnimals_link<-"https://docs.google.com/spreadsheets/d/1m-liu8omZMewqz_YP9j_YUmQ0zwATl3z4aRLnZFnfWc/pub?gid=1286117256&single=true&output=csv"
+FactSectionAnimals<-read_csv(FactSectionAnimals_link)
+```
+This loads the dataset directly from Google Sheets into R, there are not intermediate files. If they data change in Google Sheets, then the new version will be loaded when the @read-google-sheet-data code is run again. 
+
+```{r}
+#| label: fig-boxplot
+#| fig-cap: Boxplot of the number of individuals observed for each species. 
+
+ggplot(data=FactSectionAnimals, 
+       mapping=aes(x=Name_eng,y=CountLeft)) +
+  geom_boxplot()
+```

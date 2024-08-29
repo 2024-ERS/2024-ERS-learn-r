@@ -1,0 +1,76 @@
+---
+title: "Working with quarto documents that include R code"
+author: "Han Olff"
+date: "2024-08-29"
+project: 
+  output-dir: output
+format: docx
+---
+
+# Working with Quarto documents in R
+
+## Markdown, R Markdown and Quarto
+
+Markdown is a lightweight markup language used to format plain text in a simple, human-readable way. It is a simple way to format headers, tables etc for still a simple text document, such as this text, using plain text formatting. Files have the .md extension. For example, the '\#' in front of the first line of this document indicates that it is a title, and needs to be formatted like that. If you switch this window of this text to the tab "visual" you see what happens. Markdown is lightweight eg compared to html (how most internet pages are written), which allows much more formatting, and makes files practically not readable anymore with a regular text editor.
+
+Later, Markdown was expanded to R Markdown, which allows to use Markdown in the context of an R Script. Files have the .Rmd extension. This allows the alternation of regular text (such as this) with so-called code-chunks of R script. It allows you to not only write a script, but also directly in the script explain why you do things a certain way, and what the result means.
+
+The latest development in this regard is the development of Quarto. It is an open-source scientific and technical publishing system that allows you to create high-quality documents, presentations, websites, blogs, and more using a combination of code, text, and visualizations. It's designed to be a next-generation tool for literate programming, reproducible research, and data science, similar to R Markdown but more flexible and language-agnostic. This document is written in Quarto. It allows the combination of R script with regular text and figures. So it is great to explain what you are going to do in a script, and to write an interpretation of our output. This way, a quarto file with script is already halfway a scientific report. You can even write a whole paper or book in Quarto, including all the data analysis that is included in it. A strong point is that you can even mix languages.
+
+See this [overview of markdown basics](https://quarto.org/docs/authoring/markdown-basics.html) as used in Quarto. It also supports the use of [citations](https://quarto.org/docs/authoring/citations.html).
+
+A script part in a Quarto document is called a chunk. It starts with indicating in which language it is written, then some execution options starting with #\| and then the script itself. For example:
+
+```{r, message = FALSE, warning = FALSE}
+#| label: fig-histogram
+#| fig-cap: Histogram of 100 random values from a normal distribution with 0 mean and 1 standard deviation
+
+library(tidyverse)
+# set the seed of the random number generator (gives same result)
+set.seed(123)
+# generate 100 random values form a normal distribution with mean=0 and standard deviation 1
+randomvalue <- rnorm(n = 100, mean = 0, sd = 1)
+# convert to a dataframe
+data1<-data.frame(randomvalue)
+# plot as a histogram
+ggplot2::ggplot(data=data1, 
+                mapping=aes(x=randomvalue)) +
+  geom_histogram()
+
+```
+
+## Redirect the output of a code chunk
+
+In the default setting of R Studio, the output of @fig-histogram above is produced "inline", so in the the same window where you read this now. This is fine for a final report or supplement, but not desirable when developing the code. In that case, go in R Studio to the menu Tools / Global Options / Markdown and uncheck the option : "Show output inline for all R Markdown documents".\
+Then the output goes to the console and graph window, while this code windows stays clean.
+
+## Rendering Quarto file to different types of formatted output
+
+At the start of this .qmd file you find what is called the yaml header. It contains information, using fixed field names, on the title, author and data of the project.\
+A particularly important field for the next step is the output format once the file is rendered.\
+For example, putting\
+format: docx\
+in the header renders to a Word docx file.\
+Some other options for output formats are:
+
+| Format:   | Renders to:                 |
+|-----------|-----------------------------|
+| docx      | Word file                   |
+| gfm       | Markdown file for Github    |
+| PDF       | Acrobat PDF                 |
+| html      | html for web pages          |
+| mediawiki | native format for Wikipedia |
+
+Also see this [overview of output formats](https://quarto.org/docs/reference/).
+
+## Using different execution options
+
+How a code chunk behaves is determined by the execution options. You can set if you want different aspects as the code itself, the output from that code, warnings, etc in the output document.
+
+| Execute option:  | Descript                                                                                                                                                                                     |
+|------------------|------------------------------------------------------|
+| eval             | Evaluate the code chunk (if false, just echos the code into the output). echo Include the source code in output                                                                              |
+| output           | Include the results of executing the code in the output (true, false, or asis to indicate that the output is raw markdown and should not have any of Quarto’s standard enclosing markdown).  |
+| warning          | Include warnings in the output.                                                                                                                                                              |
+| error            | Include errors in the output (note that this implies that errors executing code will not halt processing of the document).                                                                   |
+| include          | Catch all for preventing any output (code or results) from being included (e.g. include: false suppresses all output from the code block).                                                   |
