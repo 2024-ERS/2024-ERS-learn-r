@@ -1,7 +1,0 @@
-# Importing data in R
-
-Data can be imported in different ways in R:\
-- entering data directly in your script\
-- reading data from a .csv or .xlsx file from your local computer or online source\
-- reading data from a published csv link in a Google Sheets database\
-We will mostly use the last method during this course.
