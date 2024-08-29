@@ -2,14 +2,24 @@
 title: "Working with quarto documents that include R code"
 author: "Han Olff"
 date: "2024-08-29"
-project: 
-  output-dir: output
 format: docx
 ---
 
 # Working with Quarto documents in R
 
-## Markdown, R Markdown and Quarto
+### Benefits of using Quarto over regular R scripts
+
+Working with Quarto has a range of benefits:
+
+-   Using its headers creates an automated outline of your script (see pane to the right), this helps in navigating arround in your script
+-   You can mix regular text with R script, for example to introduce the philosophy or assumptions of a particular analysis, and/or to summarize the conclusions that you draw from the analysis
+-   formatting of headers, tables, figure captions etc is near-automatic, you hardly need to think about it
+-   it's code chunks forces you to work in a more modular way when developing a script, step by step, task by task
+-   the rendered output documents are very nice, can be ready to go as a report or publication, even a whole book
+-   rendered output can be in all kinds of formats, like docx, pdf, html + it integrates very well with generating content for the internet
+-   a quarto document is easy to ready even for a normal person 😊
+
+### Markdown, R Markdown and Quarto
 
 Markdown is a lightweight markup language used to format plain text in a simple, human-readable way. It is a simple way to format headers, tables etc for still a simple text document, such as this text, using plain text formatting. Files have the .md extension. For example, the '\#' in front of the first line of this document indicates that it is a title, and needs to be formatted like that. If you switch this window of this text to the tab "visual" you see what happens. Markdown is lightweight eg compared to html (how most internet pages are written), which allows much more formatting, and makes files practically not readable anymore with a regular text editor.
 
@@ -19,7 +29,9 @@ The latest development in this regard is the development of Quarto. It is an ope
 
 See this [overview of markdown basics](https://quarto.org/docs/authoring/markdown-basics.html) as used in Quarto. It also supports the use of [citations](https://quarto.org/docs/authoring/citations.html).
 
-A script part in a Quarto document is called a chunk. It starts with indicating in which language it is written, then some execution options starting with #\| and then the script itself. For example:
+### Using chunks of R script
+
+A script part in a Quarto document is called a chunk. It starts with indicating in which language it is written, then some execution options starting with #\| and then the script itself. This code chunk can be run as a block of code by using the small green arrow at the top right.
 
 ```{r, message = FALSE, warning = FALSE}
 #| label: fig-histogram
@@ -39,12 +51,14 @@ ggplot2::ggplot(data=data1,
 
 ```
 
-## Redirect the output of a code chunk
+So the text \`\`\``{r} indicates that you start with a code chunk, and`\`\`\` completes it. use the quote that is typically the key below your \<esc\> key on your keyboard. To keep your output document clean, you can add options to messages and warnings (only add when your codes works well)
 
-In the default setting of R Studio, the output of @fig-histogram above is produced "inline", so in the the same window where you read this now. This is fine for a final report or supplement, but not desirable when developing the code. In that case, go in R Studio to the menu Tools / Global Options / Markdown and uncheck the option : "Show output inline for all R Markdown documents".\
-Then the output goes to the console and graph window, while this code windows stays clean.
+### Redirect the output of a code chunk
 
-## Rendering Quarto file to different types of formatted output
+In the default settings of R Studio, the output of @fig-histogram above is produced "inline", so in the the same window where you read this now. This is fine for a final report or supplement, but not desirable when developing the code. In that case, go in R Studio to the menu Tools / Global Options / Markdown and uncheck the option : "Show output inline for all R Markdown documents".\
+Then the output goes to the console and graph window, while this code windows stays clean. You can also set it per script in the settings option next to "render" in the small window menu bar above.
+
+### Rendering a Quarto file to different types of formatted output
 
 At the start of this .qmd file you find what is called the yaml header. It contains information, using fixed field names, on the title, author and data of the project.\
 A particularly important field for the next step is the output format once the file is rendered.\
@@ -53,24 +67,42 @@ format: docx\
 in the header renders to a Word docx file.\
 Some other options for output formats are:
 
-| Format:   | Renders to:                 |
-|-----------|-----------------------------|
-| docx      | Word file                   |
-| gfm       | Markdown file for Github    |
-| PDF       | Acrobat PDF                 |
-| html      | html for web pages          |
-| mediawiki | native format for Wikipedia |
+| Format:   | Renders to:                                    |
+|-----------|------------------------------------------------|
+| docx      | Word file                                      |
+| gfm       | Markdown file automatically rendered in Github |
+| PDF       | Acrobat PDF                                    |
+| html      | html for web pages                             |
+| mediawiki | native format for Wikipedia                    |
 
 Also see this [overview of output formats](https://quarto.org/docs/reference/).
 
-## Using different execution options
+### Using different execution options in a code chunk
 
 How a code chunk behaves is determined by the execution options. You can set if you want different aspects as the code itself, the output from that code, warnings, etc in the output document.
 
-| Execute option:  | Descript                                                                                                                                                                                     |
-|------------------|------------------------------------------------------|
-| eval             | Evaluate the code chunk (if false, just echos the code into the output). echo Include the source code in output                                                                              |
-| output           | Include the results of executing the code in the output (true, false, or asis to indicate that the output is raw markdown and should not have any of Quarto’s standard enclosing markdown).  |
-| warning          | Include warnings in the output.                                                                                                                                                              |
-| error            | Include errors in the output (note that this implies that errors executing code will not halt processing of the document).                                                                   |
-| include          | Catch all for preventing any output (code or results) from being included (e.g. include: false suppresses all output from the code block).                                                   |
+| Execute option: | Descript                                                                                                                                                                                    |
+|-------------------------|-----------------------------------------------|
+| eval            | Evaluate the code chunk (if false, just echos the code into the output). echo Include the source code in output                                                                             |
+| output          | Include the results of executing the code in the output (true, false, or asis to indicate that the output is raw markdown and should not have any of Quarto’s standard enclosing markdown). |
+| warning         | Include warnings in the output.                                                                                                                                                             |
+| error           | Include errors in the output (note that this implies that errors executing code will not halt processing of the document).                                                                  |
+| include         | Catch all for preventing any output (code or results) from being included (e.g. include: false suppresses all output from the code block).                                                  |
+
+### Using formulas
+
+Quarto syntax can also be used to generate equations as a Latex math expression, for example
+
+$$E = mc^{2}$$
+
+Or, the cumulative distribution function of a normal distribution as given by:
+
+$$
+\Phi(x) = \frac{1}{2} \left[ 1 + \operatorname{erf} \left( \frac{x - \mu}{\sigma \sqrt{2}} \right) \right]
+$$
+
+where: $x$ is the variable $\mu$ is the mean, $\sigma$ is the standard deviation, $\operatorname{erf}(z)$ is the error function defined by:
+
+$$
+\operatorname{erf}(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} \, dt
+$$

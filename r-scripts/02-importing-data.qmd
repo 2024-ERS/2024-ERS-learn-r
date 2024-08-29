@@ -59,3 +59,5 @@ ggplot(data=FactSectionAnimals,
        mapping=aes(x=Name_eng,y=CountLeft)) +
   geom_boxplot()
 ```
+
+
