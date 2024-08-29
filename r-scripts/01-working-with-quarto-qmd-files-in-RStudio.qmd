@@ -1,0 +1,7 @@
+# Working with Quarto documents in R
+
+Markdown is a lightweight markup language used to format plain text in a simple, human-readable way. It is a simple way to format headers, tables etc for still a simple text document, such as this one using plain text formatting. For example, the '#' in front of the first line of this document indicates that it is a title, and needs to be formatted like that.  
+
+Later this was expanded to RMarkdown, which allows to use Markdown in the context of an R Script. This allows the alternation of regular text (such as this) with so-called code-chunks of R script. 
+It allows you to not only write a script, but also directly in the script explain why you do things a certain way, and what the result means. 
+The latest development in this regard is the development of Quarto. It uses 
