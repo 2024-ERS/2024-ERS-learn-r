@@ -7,7 +7,7 @@ format: html
 
 # Working with Quarto documents in R
 
-### Benefits of using Quarto over regular R scripts
+### 1. Benefits of using Quarto over regular R scripts
 
 Working with Quarto has a range of benefits:
 
@@ -19,7 +19,7 @@ Working with Quarto has a range of benefits:
 -   rendered output can be in all kinds of formats, like docx, pdf, html + it integrates very well with generating content for the internet
 -   a quarto document is easy to ready even for a normal person 😊
 
-### Markdown, R Markdown and Quarto
+### 2. Markdown, R Markdown and Quarto
 
 Markdown is a lightweight markup language used to format plain text in a simple, human-readable way. It is a simple way to format headers, tables etc for still a simple text document, such as this text, using plain text formatting. Files have the .md extension. For example, the '\#' in front of the first line of this document indicates that it is a title, and needs to be formatted like that. If you switch this window of this text to the tab "visual" you see what happens. Markdown is lightweight eg compared to html (how most internet pages are written), which allows much more formatting, and makes files practically not readable anymore with a regular text editor.
 
@@ -27,9 +27,9 @@ Later, Markdown was expanded to R Markdown, which allows to use Markdown in the 
 
 The latest development in this regard is the development of Quarto. It is an open-source scientific and technical publishing system that allows you to create high-quality documents, presentations, websites, blogs, and more using a combination of code, text, and visualizations. It's designed to be a next-generation tool for literate programming, reproducible research, and data science, similar to R Markdown but more flexible and language-agnostic. This document is written in Quarto. It allows the combination of R script with regular text and figures. So it is great to explain what you are going to do in a script, and to write an interpretation of our output. This way, a quarto file with script is already halfway a scientific report. You can even write a whole paper or book in Quarto, including all the data analysis that is included in it. A strong point is that you can even mix languages.
 
-See this [overview of markdown basics](https://quarto.org/docs/authoring/markdown-basics.html) as used in Quarto. It also supports the use of [citations](https://quarto.org/docs/authoring/citations.html).
+See this [overview of markdown basics](https://quarto.org/docs/authoring/markdown-basics.html) as used in Quarto. It also supports the use of [citations](https://quarto.org/docs/authoring/citations.html). It can use references in a BibText format. Such a file you can export from most reference managers. I recommend to use [Zotero](https://www.zotero.org/) for managing your citations, see how to [export to BibTex](https://libguides.rhul.ac.uk/referencing/Zoterolatex) from Zotero.
 
-### Run a (chunk of) R script
+### 3. Run a (chunk of) R script
 
 A script part in a Quarto document is called a chunk. It starts with indicating in which language it is written, then some execution options starting with #\| and then the script itself. This code chunk can be run as a block of code by using the small green arrow at the top right.
 
@@ -53,12 +53,12 @@ ggplot2::ggplot(data=data1,
 
 So the text \`\`\``{r} indicates that you start with a code chunk, and`\`\`\` completes it. use the quote that is typically the key below your \<esc\> key on your keyboard. To keep your output document clean, you can add options to messages and warnings (only add when your codes works well)
 
-### Redirect the output of a code chunk
+### 4. Redirect the output of a code chunk
 
 In the default settings of R Studio, the output of @fig-histogram above is produced "inline", so in the the same window where you read this now. This is fine for a final report or supplement, but not desirable when developing the code. In that case, go in R Studio to the menu Tools / Global Options / Markdown and uncheck the option : "Show output inline for all R Markdown documents".\
 Then the output goes to the console and graph window, while this code windows stays clean. You can also set it per script in the settings option next to "render" in the small window menu bar above.
 
-### Rendering a Quarto file to different types of formatted output
+### 5. Rendering a Quarto file to different types of formatted output
 
 At the start of this .qmd file you find what is called the yaml header. It contains information, using fixed field names, on the title, author and data of the project.\
 A particularly important field for the next step is the output format once the file is rendered.\
@@ -77,19 +77,19 @@ Some other options for output formats are:
 
 Also see this [overview of output formats](https://quarto.org/docs/reference/).
 
-### Using different execution options in a code chunk
+### 6. Using different execution options in a code chunk
 
 How a code chunk behaves is determined by the execution options. You can set if you want different aspects as the code itself, the output from that code, warnings, etc in the output document.
 
 | Execute option: | Descript                                                                                                                                                                                    |
-|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | eval            | Evaluate the code chunk (if false, just echos the code into the output). echo Include the source code in output                                                                             |
 | output          | Include the results of executing the code in the output (true, false, or asis to indicate that the output is raw markdown and should not have any of Quarto’s standard enclosing markdown). |
 | warning         | Include warnings in the output.                                                                                                                                                             |
 | error           | Include errors in the output (note that this implies that errors executing code will not halt processing of the document).                                                                  |
 | include         | Catch all for preventing any output (code or results) from being included (e.g. include: false suppresses all output from the code block).                                                  |
 
-### Using formulas
+### 7. Using formulas
 
 Quarto syntax can also be used to generate equations as a Latex math expression, for example
 
