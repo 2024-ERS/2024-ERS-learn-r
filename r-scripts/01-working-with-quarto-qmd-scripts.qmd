@@ -2,7 +2,7 @@
 title: "Working with quarto documents that include R code"
 author: "Han Olff"
 date: "2024-08-29"
-format: docx
+format: html
 ---
 
 # Working with Quarto documents in R
@@ -29,7 +29,7 @@ The latest development in this regard is the development of Quarto. It is an ope
 
 See this [overview of markdown basics](https://quarto.org/docs/authoring/markdown-basics.html) as used in Quarto. It also supports the use of [citations](https://quarto.org/docs/authoring/citations.html).
 
-### Using chunks of R script
+### Run a (chunk of) R script
 
 A script part in a Quarto document is called a chunk. It starts with indicating in which language it is written, then some execution options starting with #\| and then the script itself. This code chunk can be run as a block of code by using the small green arrow at the top right.
 
@@ -67,13 +67,13 @@ format: docx\
 in the header renders to a Word docx file.\
 Some other options for output formats are:
 
-| Format:   | Renders to:                                    |
-|-----------|------------------------------------------------|
-| docx      | Word file                                      |
-| gfm       | Markdown file automatically rendered in Github |
-| PDF       | Acrobat PDF                                    |
-| html      | html for web pages                             |
-| mediawiki | native format for Wikipedia                    |
+| Format:   | Renders to:                                           |
+|-----------|-------------------------------------------------------|
+| html      | html for web pages (best default for viewing)         |
+| docx      | Word file (best for copying to a document, report)    |
+| gfm       | Github-friendly markdown (best for viewing on github) |
+| PDF       | Acrobat PDF (best for distributing)                   |
+| mediawiki | native format for Wikipedia                           |
 
 Also see this [overview of output formats](https://quarto.org/docs/reference/).
 
@@ -82,7 +82,7 @@ Also see this [overview of output formats](https://quarto.org/docs/reference/).
 How a code chunk behaves is determined by the execution options. You can set if you want different aspects as the code itself, the output from that code, warnings, etc in the output document.
 
 | Execute option: | Descript                                                                                                                                                                                    |
-|-------------------------|-----------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | eval            | Evaluate the code chunk (if false, just echos the code into the output). echo Include the source code in output                                                                             |
 | output          | Include the results of executing the code in the output (true, false, or asis to indicate that the output is raw markdown and should not have any of Quarto’s standard enclosing markdown). |
 | warning         | Include warnings in the output.                                                                                                                                                             |
